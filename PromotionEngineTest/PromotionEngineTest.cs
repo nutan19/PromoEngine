@@ -11,6 +11,16 @@ namespace PromotionEngineTest
 		{
 			_PromotionDiscountCalculator = new PromotionDiscountCalculator();
 		}
+
+		[Fact]
+		public void DiscountType_NoDiscount()
+		{
+			//Arrange
+			var actual = _PromotionDiscountCalculator.Discount(new char[] { 'A', 'B', 'C' });
+			//Assert
+			var expected = 100m;
+			Assert.Equal(actual, expected, 2);
+		}
 		[Fact]
 		public void DiscountType_QuantityDiscount()
 		{
@@ -22,16 +32,16 @@ namespace PromotionEngineTest
 		}
 
 		[Fact]
-		public void CalulateWith_GroupPromotions()
+		public void DiscountType_ComboDiscount()
 		{
-			var actual = _PromotionDiscountCalculator.Discount(new char[] { 'C', 'D', 'C' });
+			var actual = _PromotionDiscountCalculator.Discount(new char[] { 'C', 'D', 'C' ,'D'});
 
 			var expected = 60m;
 
 			Assert.Equal(actual, expected, 2);
 		}
 		[Fact]
-		public void CalulateWith_QuantityAndGroupPromotions()
+		public void CalulateWith_QuantityAndComboDiscount()
 		{
 			var actual = _PromotionDiscountCalculator.Discount(new char[] { 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'B', 'C', 'D' });
 
@@ -39,6 +49,5 @@ namespace PromotionEngineTest
 
 			Assert.Equal(actual, expected, 2);
 		}
-
 	}
 }
